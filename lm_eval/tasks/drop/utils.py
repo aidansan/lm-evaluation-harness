@@ -10,11 +10,13 @@ _ARTICLES = re.compile(r"\b(a|an|the)\b", re.UNICODE)
 
 def process_docs(dataset):
     def _process(doc):
+        answers = get_answers(doc)
         return {
             "id": doc["query_id"],
             "passage": doc["passage"],
             "question": doc["question"],
             "answers": get_answers(doc),
+            "first_answer": answers[0],
         }
 
     return dataset.map(_process)

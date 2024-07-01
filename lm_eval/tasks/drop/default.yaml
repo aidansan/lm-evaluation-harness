@@ -5,14 +5,14 @@ training_split: train
 validation_split: validation
 process_docs: !function utils.process_docs
 doc_to_text: "{{passage}} {{question}}"
-doc_to_target: "{{ answer|join(',')}}"
+doc_to_target: "{{ first_answer|join(',')}}"
 target_delimiter: ""
 process_results: !function utils.process_results
 should_decontaminate: true
 doc_to_decontamination_query: "{{passage}} {{question}}"
 generation_kwargs:
   until:
-    - "."
+    - "\n"
 metric_list:
   - metric: em
     aggregation: mean
